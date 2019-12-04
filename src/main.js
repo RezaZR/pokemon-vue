@@ -1,9 +1,13 @@
 import Vue from "vue";
+import axios from "axios";
+import VueAxios from "vue-axios";
+Vue.use(VueAxios, axios);
+Vue.axios.defaults.baseURL = "https://pokeapi.co/api/v2/";
+
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
-import store from "./store";
-
+import { store } from "./_store";
 Vue.config.productionTip = false;
 
 new Vue({
