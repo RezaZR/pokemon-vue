@@ -3,19 +3,23 @@
     .container
       .row
         .col-12
-          V_Table(:perPage="20")
+          List(:perPage="20")
 </template>
 
 <script>
-import V_Table from "@/components/V_Table"
+import List from "@/components/List";
 
 export default {
   name: "home",
   components: {
-    V_Table
+    List
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.home {
+  width: 100%;
+  margin: 2em 0;
+}
 </style>

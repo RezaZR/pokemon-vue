@@ -1,11 +1,14 @@
-  
 import axios from "axios";
 
 const urlPokemon = "pokemon/?limit=";
 
 export const pokemonService = {
-  getPokemons({ limit }) {
-    return axios.get(urlPokemon + limit).then(this.handleResponse);
+  getPokemons(data) {
+    if (data.hasOwnProperty("limit")) {
+      return axios.get(urlPokemon + data.limit).then(this.handleResponse);
+    } else if (data.hasOwnProperty("paginationUrl")) {
+      return axios.get(data.paginationUrl).then(this.handleResponse);
+    }
   },
   handleResponse(response) {
     const request = response.request;
