@@ -4,6 +4,7 @@
       .list__header__wrapper Pokemon Name
       .list__header__wrapper You Own
     ListContent(:pokemon="pokemon" v-for="(pokemon, index) in pokemons.results" v-bind:key="pokemon.name")
+    
     .container-fluid
       .row
         .col-4
@@ -41,7 +42,10 @@ export default {
   },
   methods: {
     getData() {
-      this.$store.dispatch("getPokemons", { limit: this.perPage });
+      this.$store.dispatch("getPokemons", {
+        limit: this.perPage,
+        isInitialData: true
+      });
     }
   }
 };
@@ -59,21 +63,22 @@ export default {
     &__wrapper {
       display: flex;
       align-items: center;
-      width: 50%;
-      &:nth-child(2) {
-        padding: 0 calc(0.5em + 15px);
-      }
+      width: 100%;
+      max-width: 50%;
+      flex: 0 0 50%;
     }
   }
   &__header {
     background-color: $primary-color;
     font-weight: 700;
+    color: $white;
     padding: 0.5em;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
   }
   &__content {
     padding: 0.5em;
+    cursor: pointer;
     &:nth-child(odd) {
       background-color: $white-blueish;
     }
@@ -83,6 +88,9 @@ export default {
     &:last-child {
       border-bottom-left-radius: 9px;
       border-bottom-right-radius: 9px;
+    }
+    &:hover {
+      font-weight: 700;
     }
     &__wrapper {
       &:nth-child(1) {

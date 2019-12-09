@@ -3,11 +3,14 @@ import axios from "axios";
 const urlPokemon = "pokemon/?limit=";
 
 export const pokemonService = {
+  getPokemon(data) {
+    return axios.get(data.url).then(this.handleResponse);
+  },
   getPokemons(data) {
-    if (data.hasOwnProperty("limit")) {
+    if (data.isInitialData) {
       return axios.get(urlPokemon + data.limit).then(this.handleResponse);
-    } else if (data.hasOwnProperty("paginationUrl")) {
-      return axios.get(data.paginationUrl).then(this.handleResponse);
+    } else {
+      return axios.get(data.url).then(this.handleResponse);
     }
   },
   handleResponse(response) {

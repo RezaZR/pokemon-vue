@@ -22,8 +22,10 @@ export default {
       this.getData();
     },
     getData() {
-      console.log("a");
-      this.$store.dispatch("getPokemons", { paginationUrl: this.url });
+      this.$store.dispatch("getPokemons", {
+        url: this.url,
+        isInitialData: false
+      });
     }
   }
 };

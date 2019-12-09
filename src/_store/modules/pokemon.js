@@ -2,6 +2,8 @@ import { pokemonService } from "@/_services";
 
 export const pokemon = {
   state: {
+    pokemon: null,
+
     pokemons: null,
     isPokemonsFilled: false,
 
@@ -9,6 +11,21 @@ export const pokemon = {
   },
   getters: {},
   actions: {
+    getPokemon({ commit, dispatch }, data) {
+      pokemonService.getPokemon(data).then(
+        async response => {
+          commit("setPokemon", response);
+
+          console.log(response);
+          return response;
+        },
+        error => {
+          dispatch("alert/error", error, { root: true });
+
+          return error;
+        }
+      );
+    },
     getPokemons({ commit, dispatch }, data) {
       pokemonService.getPokemons(data).then(
         async response => {
@@ -26,6 +43,9 @@ export const pokemon = {
     }
   },
   mutations: {
+    setPokemon(state, response) {
+      state.pokemon = response;
+    },
     setPokemons(state, response) {
       if (state.isPokemonsFilled) {
         state.pokemons = [];
