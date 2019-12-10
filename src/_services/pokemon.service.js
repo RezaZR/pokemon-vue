@@ -1,17 +1,26 @@
 import axios from "axios";
 
-const urlPokemon = "pokemon/?limit=";
+const urlPokemon = "pokemon/";
 
 export const pokemonService = {
-  getPokemon(data) {
-    return axios.get(data.url).then(this.handleResponse);
+  async getPokemon(data) {
+    const result = await axios
+      .get(urlPokemon + data.name)
+      .then(this.handleResponse);
+
+    return result;
   },
-  getPokemons(data) {
+  async getPokemons(data) {
+    let result = null;
     if (data.isInitialData) {
-      return axios.get(urlPokemon + data.limit).then(this.handleResponse);
+      result = await axios
+        .get(urlPokemon + "?limit=" + data.limit)
+        .then(this.handleResponse);
     } else {
-      return axios.get(data.url).then(this.handleResponse);
+      result = await axios.get(data.url).then(this.handleResponse);
     }
+
+    return result;
   },
   handleResponse(response) {
     const request = response.request;

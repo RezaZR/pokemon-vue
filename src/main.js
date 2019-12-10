@@ -6,7 +6,7 @@ Vue.axios.defaults.baseURL = "https://pokeapi.co/api/v2/";
 
 import App from "./App.vue";
 import "./registerServiceWorker";
-import router from "./router";
+import router from "./_router";
 import { store } from "./_store";
 Vue.config.productionTip = false;
 

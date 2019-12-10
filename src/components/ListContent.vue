@@ -17,7 +17,7 @@ export default {
     goToPokemonDetails(url) {
       this.$router.push({
         name: "details",
-        params: { name: this.pokemon.name, url: url }
+        params: { name: this.pokemon.name }
       });
     }
   }
