@@ -1,8 +1,8 @@
 <template lang="pug">
-  div(v-if="url === null")
-    button(disabled="disabled") {{ title }}
-  div(v-else)
-    button(@click="handlePagination") {{ title }}
+  .pagination(v-if="url === null")
+    button.button.button--grey.button--radius-6(disabled="disabled") {{ title }}
+  .pagination(v-else)
+    button.button.button--grey.button--radius-6(@click="handlePagination") {{ title }}
 </template>
 
 <script>

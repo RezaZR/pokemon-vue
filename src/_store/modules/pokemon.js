@@ -7,32 +7,35 @@ export const pokemon = {
     pokemons: null,
     isPokemonsFilled: false,
 
+    myPokemonList: JSON.parse(localStorage.getItem("myPokemonList") || "[]"),
+
     isLoading: false
   },
   getters: {},
   actions: {
     getPokemon({ commit, dispatch }, data) {
       pokemonService.getPokemon(data).then(
-        responsePokemon => {
+        response => {
           let result = {
             abilities: [],
-            height: responsePokemon.height * 10,
+            height: response.height * 10,
             moves: [],
-            picture: responsePokemon.sprites.front_default,
+            name: data.name,
+            picture: response.sprites.front_default,
             stats: {},
             types: [],
-            weight: Math.round(responsePokemon.weight / 10)
+            weight: Math.round(response.weight / 10)
           };
 
-          responsePokemon.abilities.map(ability => {
+          response.abilities.map(ability => {
             result.abilities.push(ability.ability.name);
           });
 
-          responsePokemon.moves.map(move => {
+          response.moves.map(move => {
             result.moves.push(move.move.name);
           });
 
-          responsePokemon.stats.map(stat => {
+          response.stats.map(stat => {
             switch (stat.stat.name) {
               case "speed":
                 result.stats.speed = stat.base_stat;
@@ -57,7 +60,7 @@ export const pokemon = {
             }
           });
 
-          responsePokemon.types.map(type => {
+          response.types.map(type => {
             result.types.push(type.type.name);
           });
 
@@ -72,9 +75,19 @@ export const pokemon = {
         }
       );
     },
-    async getPokemons({ commit, dispatch }, data) {
+    async getPokemons({ commit, dispatch, state }, data) {
       await pokemonService.getPokemons(data).then(
         response => {
+          response.results.map(pokemon => {
+            pokemon.owned = 0;
+            if (state.myPokemonList !== []) {
+              state.myPokemonList.forEach(myPokemon => {
+                if (pokemon.name === myPokemon.name) {
+                  pokemon.owned++;
+                }
+              });
+            }
+          });
           commit("setPokemons", response);
           commit("setIsPokemonsFilled");
 
@@ -101,6 +114,14 @@ export const pokemon = {
     },
     setIsPokemonsFilled(state) {
       state.isPokemonsFilled = !state.isPokemonsFilled;
+    },
+    setMyPokemonList(state, value) {
+      console.log(value);
+      state.myPokemonList.push(value);
+      localStorage.setItem(
+        "myPokemonList",
+        JSON.stringify(state.myPokemonList)
+      );
     }
   }
 };

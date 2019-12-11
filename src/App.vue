@@ -1,12 +1,31 @@
 <template lang="pug">
   #app
+    HeaderModule
+    Modal(v-if="isOpen" :pokemon="data" :contentFor="contentFor")
     router-view
 </template>
 
 <script>
+import HeaderModule from "@/components/HeaderModule";
+import Modal from "@/components/Modal";
+
 export default {
   name: "app",
-  components: {}
+  components: {
+    HeaderModule,
+    Modal
+  },
+  computed: {
+    isOpen() {
+      return this.$store.state.modal.isOpen;
+    },
+    contentFor() {
+      return this.$store.state.modal.contentFor;
+    },
+    data() {
+      return this.$store.state.modal.data;
+    }
+  }
 };
 </script>
 

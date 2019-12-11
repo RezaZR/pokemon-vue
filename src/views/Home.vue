@@ -3,7 +3,7 @@
     .container
       .row
         .col-12
-          List(:perPage="20")
+          List(:perPage="20" :contentFor="'home'")
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .home {
   width: 100%;
   margin: 2em 0;

@@ -1,18 +1,22 @@
 <template lang="pug">
-  .list(v-if="pokemons && pokemons !== null")
-    .list__header
-      .list__header__wrapper Pokemon Name
-      .list__header__wrapper You Own
-    ListContent(:pokemon="pokemon" v-for="(pokemon, index) in pokemons.results" v-bind:key="pokemon.name")
-    
-    .container-fluid
-      .row
-        .col-4
-        .col-2
-          Pagination(:url="pokemons.previous" :title="'Previous'")
-        .col-2
-          Pagination(:url="pokemons.next" :title="'Next'")
-        .col-4
+  div(v-if="contentFor === 'home'")
+    .list(v-if="pokemons && pokemons === null")
+      .spinner
+    .list(v-else-if="pokemons && pokemons !== null")
+      .list__header
+        .list__header__wrapper Pokemon Name
+        .list__header__wrapper You Own
+      ListContent(:pokemon="pokemon" :contentFor="contentFor" v-for="(pokemon, index) in pokemons.results" v-bind:key="pokemon.name")
+      
+      .list__footer
+        Pagination(:url="pokemons.previous" :title="'Previous'")
+        Pagination(:url="pokemons.next" :title="'Next'")
+  div(v-else-if = "contentFor === 'my_pokemon'")
+    .list
+      .list__header
+        .list__header__wrapper Pokemon Name
+        .list__header__wrapper Nickname
+      ListContent(:pokemon="datum" :contentFor="contentFor" v-for="(datum, index) in data" v-bind:key="datum.name")
 </template>
 
 <script>
@@ -25,7 +29,16 @@ export default {
     perPage: {
       type: Number,
       required: false,
-      default: 10
+      default: 20
+    },
+    contentFor: {
+      type: String,
+      required: true
+    },
+    data: {
+      type: Array,
+      required: false,
+      default: null
     }
   },
   components: {
@@ -36,6 +49,9 @@ export default {
     this.getData();
   },
   computed: {
+    myPokemonList() {
+      return this.$store.state.pokemon.myPokemonList;
+    },
     pokemons() {
       return this.$store.state.pokemon.pokemons;
     }
@@ -85,16 +101,24 @@ export default {
     &:nth-child(even) {
       background-color: $white;
     }
-    &:last-child {
-      border-bottom-left-radius: 9px;
-      border-bottom-right-radius: 9px;
-    }
     &:hover {
       font-weight: 700;
     }
     &__wrapper {
+      text-transform: capitalize;
+    }
+  }
+  &__footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    & .pagination {
+      margin-top: 2em;
+      & button {
+        width: 100%;
+      }
       &:nth-child(1) {
-        text-transform: capitalize;
+        margin-right: 1em;
       }
     }
   }
