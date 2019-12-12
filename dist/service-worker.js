@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/dist/precache-manifest.cc0cfb4f869b638e2fe48d49055dc7c9.js"
+  "/precache-manifest.0b9b939cc6aa16ccf0a00d814a661098.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "pokemon-vue"});
