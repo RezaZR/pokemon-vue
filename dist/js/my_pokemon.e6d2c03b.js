@@ -1,2 +1,2 @@
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["my_pokemon"],{f1c0:function(t,e,o){"use strict";o.r(e);var n=function(){var t=this,e=t.$createElement,o=t._self._c||e;return o("div",{staticClass:"home"},[o("div",{staticClass:"container"},[o("div",{staticClass:"row"},[o("div",{staticClass:"col-12"},[o("List",{attrs:{perPage:1e3,data:t.myPokemonList,contentFor:"my_pokemon"}})],1)])])])},s=[],a=o("2e90"),i={name:"my_pokemon",components:{List:a["a"]},computed:{myPokemonList:function(){return this.$store.state.pokemon.myPokemonList}}},c=i,m=o("2877"),r=Object(m["a"])(c,n,s,!1,null,null,null);e["default"]=r.exports}}]);
-//# sourceMappingURL=my_pokemon.7fa53233.js.map
+//# sourceMappingURL=my_pokemon.e6d2c03b.js.map
