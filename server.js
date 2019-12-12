@@ -18,6 +18,9 @@ app.use(staticFileMiddleware);
 app.get("/", function(req, res) {
   res.render(path.join(__dirname + "/dist/index.html"));
 });
+app.get("*", function(req, res) {
+  res.render(path.join(__dirname + "/dist/index.html"));
+});
 
 const server = app.listen(process.env.PORT || 8080, function() {
   const port = server.address().port;
